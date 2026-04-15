@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Reset Your Life — Soft Planner</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -13,14 +13,12 @@
     --text: #2d2926;
     --text-light: #7a7268;
     --accent: #8a9e85;
-    --accent-light: #d4e0d1;
     --card-bg: #ece8df;
     --white: #faf8f4;
-    --shadow: 0 4px 24px rgba(45,41,38,0.07);
     --danger: #b07070;
   }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
   body {
     font-family: 'Jost', sans-serif;
@@ -30,99 +28,72 @@
     line-height: 1.6;
   }
 
-  /* –– NAV –– */
+  /* –– NAVEGACIÓN –– */
   nav {
     position: fixed; top: 0; left: 0; right: 0;
     background: var(--white);
     border-bottom: 1px solid var(--cream-dark);
     display: flex; align-items: center; justify-content: space-between;
-    padding: 0 32px; height: 60px;
+    padding: 0 20px; height: 60px;
     z-index: 100;
-    box-shadow: 0 2px 12px rgba(45,41,38,0.05);
   }
-  .nav-logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--text);
-  }
-  .nav-tabs {
-    display: flex; gap: 4px;
-    overflow-x: auto; scrollbar-width: none;
-  }
+  .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; }
+  .nav-tabs { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
   .nav-tabs::-webkit-scrollbar { display: none; }
   .tab-btn {
     background: none; border: none; cursor: pointer;
-    padding: 6px 14px; border-radius: 20px;
-    font-family: 'Jost', sans-serif; font-size: 0.78rem;
-    font-weight: 400; color: var(--text-light);
-    transition: all 0.2s; white-space: nowrap;
+    padding: 6px 12px; border-radius: 20px;
+    font-family: 'Jost', sans-serif; font-size: 0.8rem;
+    color: var(--text-light); white-space: nowrap;
   }
-  .tab-btn.active { background: var(--accent); color: white; font-weight: 500; }
+  .tab-btn.active { background: var(--accent); color: white; }
 
-  /* –– MAIN –– */
-  main {
-    max-width: 800px; margin: 0 auto;
-    padding: 100px 20px 100px;
-  }
-
-  .page { display: none; animation: fadeIn 0.4s ease-out; }
+  /* –– CONTENIDO –– */
+  main { max-width: 800px; margin: 0 auto; padding: 80px 20px 40px; }
+  .page { display: none; animation: fadeIn 0.4s ease; }
   .page.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(15px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
+  .section-header { margin-bottom: 25px; border-bottom: 1px solid var(--stone); padding-bottom: 8px; }
+  .section-header h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; }
 
-  /* –– COVER –– */
-  .cover { text-align: center; padding: 40px 0; }
-  .leaf-deco { font-size: 3.5rem; display: block; margin-bottom: 10px; opacity: 0.7; }
-  .cover h1 { font-family: 'Playfair Display', serif; font-size: 3rem; margin-bottom: 10px; }
-  .cover-card { background: var(--card-bg); border-radius: 24px; padding: 40px; margin: 30px 0; border: 1px solid var(--cream-dark); }
+  .card { background: var(--card-bg); border-radius: 16px; padding: 20px; margin-bottom: 15px; }
 
-  /* –– REUSABLE –– */
-  .section-header { margin-bottom: 30px; border-bottom: 1px solid var(--stone); padding-bottom: 10px; }
-  .section-header h2 { font-family: 'Playfair Display', serif; font-size: 2rem; }
-  
-  .card { background: var(--card-bg); border-radius: 16px; padding: 25px; margin-bottom: 20px; }
-  
-  textarea, input {
+  input, textarea {
     width: 100%; background: transparent; border: none;
-    border-bottom: 1px solid var(--stone); padding: 10px 0;
-    font-family: 'Jost', sans-serif; color: var(--text); outline: none;
+    border-bottom: 1.5px solid var(--stone); padding: 8px 0;
+    font-family: 'Jost', sans-serif; font-size: 1rem; color: var(--text); outline: none;
   }
-  textarea:focus { border-bottom-color: var(--accent); }
-  
-  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-  @media (max-width: 600px) { .two-col { grid-template-columns: 1fr; } }
+  input:focus, textarea:focus { border-bottom-color: var(--accent); }
 
-  /* –– HABITS & TABLES –– */
-  .habit-tracker { overflow-x: auto; background: var(--card-bg); padding: 15px; border-radius: 12px; }
-  .habit-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
-  .day-cell { width: 25px; height: 25px; border: 1px solid var(--cream-dark); cursor: pointer; text-align: center; }
-  .day-cell.checked { background: var(--accent); color: white; }
+  /* –– TABLAS (HÁBITOS Y FINANZAS) –– */
+  .table-wrapper { overflow-x: auto; margin-top: 10px; }
+  table { width: 100%; border-collapse: collapse; min-width: 400px; }
+  th { font-size: 0.75rem; color: var(--text-light); text-align: left; padding: 8px; }
+  td { padding: 5px; border-bottom: 1px solid var(--cream-dark); }
 
-  /* –– UTILS –– */
+  .day-cell { 
+    width: 30px; height: 30px; border: 1px solid var(--stone); 
+    border-radius: 4px; cursor: pointer; text-align: center;
+  }
+  .day-cell.checked { background: var(--accent); position: relative; }
+  .day-cell.checked::after { content: '✓'; color: white; font-size: 0.8rem; }
+
+  /* –– BOTONES –– */
   .btn-container { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
-  .primary-btn { background: var(--accent); color: white; border: none; padding: 12px 25px; border-radius: 30px; cursor: pointer; font-weight: 500; }
-  .secondary-btn { background: transparent; border: 1px solid var(--stone); color: var(--text-light); padding: 12px 25px; border-radius: 30px; cursor: pointer; }
-  .danger-btn { color: var(--danger); border: 1px solid var(--danger); background: transparent; padding: 8px 15px; border-radius: 20px; cursor: pointer; font-size: 0.8rem; margin-top: 40px;}
+  .primary-btn { background: var(--accent); color: white; border: none; padding: 12px 25px; border-radius: 30px; cursor: pointer; }
+  .add-btn { background: none; border: 1px dashed var(--stone); padding: 10px; width: 100%; border-radius: 10px; color: var(--text-light); cursor: pointer; margin-top: 10px; }
 
-  .save-bar {
+  .balance-card { display: flex; justify-content: space-between; font-weight: 500; margin-top: 10px; font-size: 1.1rem; }
+  .save-toast {
     position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
     background: var(--text); color: white; padding: 8px 20px; border-radius: 20px;
     font-size: 0.8rem; opacity: 0; transition: 0.3s; pointer-events: none;
   }
-  .save-bar.show { opacity: 1; }
+  .save-toast.show { opacity: 1; }
 
-  /* –– FOOTER / CLOSING –– */
-  .closing-area { text-align: center; padding: 60px 0; }
-  .closing-area i { font-family: 'Playfair Display', serif; font-size: 1.2rem; display: block; margin-top: 20px; color: var(--accent); }
-
-  @media print {
-    nav, .btn-container, .add-habit-btn, .add-row-btn, .save-bar, .danger-btn { display: none; }
-    main { padding: 0; }
-    .page { display: block !important; page-break-after: always; }
+  @media (max-width: 600px) {
+    .two-col { display: grid; grid-template-columns: 1fr; gap: 10px; }
   }
 </style>
 </head>
@@ -130,275 +101,183 @@
 
 <nav>
   <span class="nav-logo">Reset ✦</span>
-  <div class="nav-tabs" id="navTabs">
+  <div class="nav-tabs">
     <button class="tab-btn active" onclick="goTo('cover',this)">Inicio</button>
-    <button class="tab-btn" onclick="goTo('where',this)">Estado</button>
-    <button class="tab-btn" onclick="goTo('ideal',this)">Visión</button>
+    <button class="tab-btn" onclick="goTo('status',this)">Estado</button>
     <button class="tab-btn" onclick="goTo('habits',this)">Hábitos</button>
     <button class="tab-btn" onclick="goTo('weekly',this)">Semana</button>
-    <button class="tab-btn" onclick="goTo('finance',this)">Dinero</button>
-    <button class="tab-btn" onclick="goTo('home-reset',this)">Hogar</button>
+    <button class="tab-btn" onclick="goTo('finance',this)">Finanzas</button>
   </div>
 </nav>
 
 <main>
   <section class="page active" id="cover">
-    <div class="cover">
-      <span class="leaf-deco">🌿</span>
-      <h1>Reset Your Life</h1>
-      <p>Un espacio para la calma y la intención.</p>
-      <div class="cover-card">
-        <p>Este planificador está diseñado para ayudarte a limpiar el ruido mental y enfocarte en lo que realmente importa.</p>
-        <p style="margin-top:20px; font-weight:500;">Sin presiones. Solo progreso lento.</p>
+    <div style="text-align: center; padding: 40px 0;">
+      <span style="font-size: 3rem;">🌿</span>
+      <h1 style="font-family: 'Playfair Display', serif; font-size: 2.5rem;">Reset Your Life</h1>
+      <p style="font-style: italic; color: var(--text-light);">Un planificador para recuperar tu paz.</p>
+      <div class="card" style="margin-top: 30px; text-align: left;">
+        <p>Este es tu espacio seguro. Úsalo para organizar tu mente, soltar el estrés y planear con intención.</p>
       </div>
-      <div class="btn-container" style="justify-content: center;">
-        <button class="primary-btn" onclick="document.querySelectorAll('.tab-btn')[1].click()">Comenzar mi reset →</button>
-        <button class="secondary-btn" onclick="window.print()">Guardar como PDF</button>
-      </div>
+      <button class="primary-btn" onclick="document.querySelectorAll('.tab-btn')[1].click()">Empezar revisión →</button>
     </div>
   </section>
 
-  <section class="page" id="where">
-    <div class="section-header"><h2>¿Dónde estoy ahora?</h2></div>
+  <section class="page" id="status">
+    <div class="section-header"><h2>¿Cómo va todo?</h2></div>
     <div class="card">
-      <label>¿Cómo me siento hoy?</label>
-      <textarea data-key="where_feel" placeholder="Describe tu estado emocional..."></textarea>
+      <label style="font-size: 0.9rem; color: var(--text-light);">¿Cómo te sientes en este momento?</label>
+      <textarea data-key="st_feel" placeholder="Escribe aquí..."></textarea>
     </div>
     <div class="card">
-      <label>¿Qué me está robando energía?</label>
-      <textarea data-key="where_stress" placeholder="Lista tus estresores..."></textarea>
-    </div>
-  </section>
-
-  <section class="page" id="ideal">
-    <div class="section-header"><h2>Mi Vida Ideal</h2></div>
-    <div class="two-col">
-        <div class="card">
-            <label>Mi rutina soñada</label>
-            <textarea data-key="ideal_routine" style="min-height: 150px;"></textarea>
-        </div>
-        <div class="card">
-            <label>Cómo quiero sentirme</label>
-            <textarea data-key="ideal_feel" style="min-height: 150px;"></textarea>
-        </div>
+      <label style="font-size: 0.9rem; color: var(--text-light);">¿Qué te está causando estrés?</label>
+      <textarea data-key="st_stress" placeholder="Sácalo de tu mente..."></textarea>
     </div>
   </section>
 
   <section class="page" id="habits">
     <div class="section-header"><h2>Rastreador de Hábitos</h2></div>
-    <div class="habit-tracker">
-      <table class="habit-table">
-        <thead>
-          <tr id="habitHeader"><th>Hábito</th></tr>
-        </thead>
-        <tbody id="habitBody"></tbody>
+    <div class="table-wrapper">
+      <table>
+        <thead><tr id="hHead"></tr></thead>
+        <tbody id="hBody"></tbody>
       </table>
     </div>
-    <div class="btn-container">
-        <button class="secondary-btn" onclick="addHabit()">+ Añadir Hábito</button>
-    </div>
+    <button class="add-btn" onclick="addHabit()">+ Nuevo Hábito</button>
   </section>
 
   <section class="page" id="weekly">
     <div class="section-header"><h2>Plan Semanal</h2></div>
-    <div class="card">
-        <label>Prioridad número uno de la semana:</label>
-        <input type="text" data-key="week_top_priority" placeholder="Si solo haces una cosa, que sea esta.">
-    </div>
-    <div class="two-col" id="weekGrid">
-        </div>
+    <div id="weekContainer"></div>
   </section>
 
   <section class="page" id="finance">
-    <div class="section-header"><h2>Balance de Gastos</h2></div>
+    <div class="section-header"><h2>Finanzas del Mes</h2></div>
     <div class="card">
-        <table style="width: 100%; border-collapse: collapse;">
-            <thead>
-                <tr style="font-size: 0.8rem; color: var(--text-light);">
-                    <th>Concepto</th>
-                    <th>Ingreso</th>
-                    <th>Gasto</th>
-                </tr>
-            </thead>
-            <tbody id="financeBody"></tbody>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Concepto</th>
+              <th style="width: 80px;">Ingreso</th>
+              <th style="width: 80px;">Gasto</th>
+              <th style="width: 40px;"></th>
+            </tr>
+          </thead>
+          <tbody id="fBody"></tbody>
         </table>
-        <button class="add-row-btn" onclick="addFinanceRow()" style="background:none; border:none; color:var(--accent); cursor:pointer; margin-top:10px;">+ Añadir línea</button>
+      </div>
+      <button class="add-btn" onclick="addFinRow()">+ Agregar línea</button>
     </div>
     <div class="card" style="background: var(--white);">
-        <div style="display:flex; justify-content: space-between;">
-            <span>Total Neto:</span>
-            <span id="totalBalance" style="font-weight: 700;">$0.00</span>
-        </div>
-    </div>
-  </section>
-
-  <section class="page" id="home-reset">
-    <div class="section-header"><h2>Reset del Hogar</h2></div>
-    <div class="card" id="homeChecklist">
-        </div>
-    
-    <div class="closing-area">
-        <p>Has completado tu revisión.</p>
-        <i>"Tu espacio exterior refleja tu calma interior."</i>
-        <button class="danger-btn" onclick="clearEverything()">Borrar todos los datos y reiniciar</button>
+      <div class="balance-card">
+        <span>Balance Total:</span>
+        <span id="totalBalance">$0.00</span>
+      </div>
     </div>
   </section>
 </main>
 
-<div class="save-bar" id="saveBanner">Progreso guardado automáticamente ✦</div>
+<div class="save-toast" id="toast">Cambios guardados</div>
 
 <script>
-// --- CONFIGURACIÓN ---
-const DAYS = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
-const HOME_ITEMS = ['Cambiar sábanas', 'Limpiar superficies', 'Organizar correo/papeles', 'Hacer la colada', 'Regar plantas'];
+// --- UTILIDADES ---
+const save = (k, v) => {
+    localStorage.setItem('ryl_' + k, JSON.stringify(v));
+    const t = document.getElementById('toast');
+    t.classList.add('show');
+    clearTimeout(window.tTimer);
+    window.tTimer = setTimeout(() => t.classList.remove('show'), 1500);
+};
+const load = (k, def) => JSON.parse(localStorage.getItem('ryl_' + k)) || def;
 
-// --- NAVEGACIÓN ---
 function goTo(id, btn) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.getElementById(id).classList.add('active');
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    if (btn) btn.classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    btn.classList.add('active');
+    window.scrollTo(0,0);
 }
 
-// --- PERSISTENCIA ---
-function save(key, val) {
-    localStorage.setItem('ryl_' + key, typeof val === 'string' ? val : JSON.stringify(val));
-    showSaveBanner();
-}
-function load(key) {
-    return localStorage.getItem('ryl_' + key);
-}
-function showSaveBanner() {
-    const b = document.getElementById('saveBanner');
-    b.classList.add('show');
-    setTimeout(() => b.classList.remove('show'), 2000);
-}
-
-// --- INICIALIZACIÓN DE COMPONENTES ---
-
-// 1. Inputs de texto automáticos
-function bindInputs() {
-    document.querySelectorAll('[data-key]').forEach(el => {
-        el.value = load(el.dataset.key) || '';
-        el.addEventListener('input', () => save(el.dataset.key, el.value));
-    });
-}
-
-// 2. Planificador Semanal
-function buildWeekly() {
-    const grid = document.getElementById('weekGrid');
-    grid.innerHTML = '';
-    DAYS.forEach(day => {
-        const div = document.createElement('div');
-        div.className = 'card';
-        div.innerHTML = `<label style="font-weight:700">${day}</label>
-                         <textarea data-key="note_${day}" placeholder="Planes o notas..."></textarea>`;
-        grid.appendChild(div);
-    });
-}
-
-// 3. Hábitos
-let habits = JSON.parse(load('habits_list')) || ['Beber agua', 'Meditar', 'Leer'];
-
+// --- HÁBITOS ---
+let habits = load('h_list', ['Beber agua', 'Hacer ejercicio']);
 function renderHabits() {
-    const header = document.getElementById('habitHeader');
-    const body = document.getElementById('habitBody');
-    header.innerHTML = '<th>Hábito</th>';
-    for(let i=1; i<=7; i++) header.innerHTML += `<th>${i}</th>`;
-    
+    const head = document.getElementById('hHead');
+    const body = document.getElementById('hBody');
+    head.innerHTML = '<th>Hábito</th>' + Array.from({length:7}, (_,i)=>`<th>${i+1}</th>`).join('');
     body.innerHTML = '';
-    habits.forEach((h, hIdx) => {
+    habits.forEach((h, i) => {
         const tr = document.createElement('tr');
-        tr.innerHTML = `<td><input type="text" value="${h}" onchange="updateHabitName(${hIdx}, this.value)"></td>`;
+        tr.innerHTML = `<td><input type="text" value="${h}" onchange="updateHName(${i}, this.value)"></td>`;
         for(let d=1; d<=7; d++) {
-            const active = load(`hbit_${hIdx}_${d}`) === 'true';
-            tr.innerHTML += `<td class="day-cell ${active ? 'checked' : ''}" onclick="toggleHabit(${hIdx}, ${d}, this)"></td>`;
+            const checked = load(`h_${i}_${d}`, false);
+            const td = document.createElement('td');
+            td.className = `day-cell ${checked ? 'checked' : ''}`;
+            td.onclick = () => {
+                td.classList.toggle('checked');
+                save(`h_${i}_${d}`, td.classList.contains('checked'));
+            };
+            tr.appendChild(td);
         }
         body.appendChild(tr);
     });
 }
+function updateHName(i, v) { habits[i] = v; save('h_list', habits); }
+function addHabit() { habits.push('Nuevo'); save('h_list', habits); renderHabits(); }
 
-function updateHabitName(idx, val) {
-    habits[idx] = val;
-    save('habits_list', habits);
-}
-
-function toggleHabit(hIdx, d, el) {
-    const newState = !el.classList.contains('checked');
-    el.classList.toggle('checked');
-    save(`hbit_${hIdx}_${d}`, newState);
-}
-
-function addHabit() {
-    habits.push('Nuevo hábito');
-    save('habits_list', habits);
-    renderHabits();
-}
-
-// 4. Finanzas
-let finRows = JSON.parse(load('fin_data')) || [{desc: '', inc: 0, exp: 0}];
-
+// --- FINANZAS (CORREGIDO PARA MÓVILES) ---
+let finData = load('f_data', [{desc: '', inc: '', exp: ''}]);
 function renderFinance() {
-    const body = document.getElementById('financeBody');
+    const body = document.getElementById('fBody');
     body.innerHTML = '';
-    let total = 0;
-    finRows.forEach((row, idx) => {
-        total += (parseFloat(row.inc) || 0) - (parseFloat(row.exp) || 0);
+    finData.forEach((row, i) => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
-            <td><input type="text" value="${row.desc}" oninput="updateFin(${idx}, 'desc', this.value)"></td>
-            <td><input type="number" value="${row.inc}" oninput="updateFin(${idx}, 'inc', this.value)"></td>
-            <td><input type="number" value="${row.exp}" oninput="updateFin(${idx}, 'exp', this.value)"></td>
+            <td><input type="text" value="${row.desc}" oninput="updateFinData(${i}, 'desc', this.value)"></td>
+            <td><input type="number" value="${row.inc}" placeholder="0" oninput="updateFinData(${i}, 'inc', this.value)"></td>
+            <td><input type="number" value="${row.exp}" placeholder="0" oninput="updateFinData(${i}, 'exp', this.value)"></td>
+            <td><button onclick="delFin(${i})" style="background:none; border:none; color:var(--danger);">✕</button></td>
         `;
         body.appendChild(tr);
     });
-    document.getElementById('totalBalance').innerText = `$${total.toFixed(2)}`;
+    calcTotal();
 }
-
-function updateFin(idx, field, val) {
-    finRows[idx][field] = val;
-    save('fin_data', finRows);
-    renderFinance();
+function updateFinData(i, field, val) {
+    finData[i][field] = val;
+    localStorage.setItem('ryl_f_data', JSON.stringify(finData));
+    calcTotal(); // Solo calcula el número, no refresca la tabla entera
 }
-
-function addFinanceRow() {
-    finRows.push({desc: '', inc: 0, exp: 0});
-    renderFinance();
+function calcTotal() {
+    const total = finData.reduce((acc, r) => acc + (Number(r.inc)||0) - (Number(r.exp)||0), 0);
+    const el = document.getElementById('totalBalance');
+    el.innerText = `$${total.toFixed(2)}`;
+    el.style.color = total >= 0 ? 'var(--accent)' : 'var(--danger)';
 }
+function addFinRow() { finData.push({desc:'', inc:'', exp:''}); renderFinance(); }
+function delFin(i) { finData.splice(i, 1); save('f_data', finData); renderFinance(); }
 
-// 5. Checklist Hogar
-function buildHomeReset() {
-    const container = document.getElementById('homeChecklist');
-    container.innerHTML = '';
-    HOME_ITEMS.forEach((item, idx) => {
-        const checked = load(`home_${idx}`) === 'true';
+// --- SEMANA ---
+const days = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+function buildWeek() {
+    const container = document.getElementById('weekContainer');
+    days.forEach(d => {
         const div = document.createElement('div');
-        div.style.margin = "10px 0";
-        div.innerHTML = `
-            <input type="checkbox" id="h${idx}" ${checked ? 'checked' : ''} onchange="save('home_${idx}', this.checked)">
-            <label for="h${idx}" style="margin-left:10px">${item}</label>
-        `;
+        div.className = 'card';
+        div.innerHTML = `<label style="font-weight:500;">${d}</label><textarea data-key="wk_${d}"></textarea>`;
         container.appendChild(div);
     });
 }
 
-function clearEverything() {
-    if(confirm('¿Estás seguro de que quieres borrar todos tus datos? Esta acción no se puede deshacer.')) {
-        localStorage.clear();
-        location.reload();
-    }
-}
-
-// Iniciar todo
+// --- INICIO ---
 document.addEventListener('DOMContentLoaded', () => {
-    buildWeekly();
-    bindInputs();
+    buildWeek();
     renderHabits();
     renderFinance();
-    buildHomeReset();
+    document.querySelectorAll('[data-key]').forEach(el => {
+        el.value = load(el.dataset.key, '');
+        el.addEventListener('input', () => save(el.dataset.key, el.value));
+    });
 });
 </script>
-
 </body>
 </html>
