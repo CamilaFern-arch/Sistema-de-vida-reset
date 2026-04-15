@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Reset Your Life — Soft Planner</title>
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><path d=%22M30 80 C 30 40, 30 20, 70 20 C 50 20, 30 35, 30 50 M30 50 C 50 50, 70 60, 70 80 C 50 75, 30 70, 30 50%22 fill=%22none%22 stroke=%22%238a9e85%22 stroke-width=%225%22 stroke-linecap=%22round%22/></svg>">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%23f0ece3%22/><path d=%22M35 75 C 35 40, 35 25, 70 25 C 55 25, 35 40, 35 50 M35 50 C 50 50, 70 55, 70 75 C 55 72, 35 70, 35 50%22 fill=%22none%22 stroke=%22%238a9e85%22 stroke-width=%226%22 stroke-linecap=%22round%22/></svg>">
+
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -37,7 +41,9 @@
     padding: 0 20px; height: 60px;
     z-index: 100;
   }
-  .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; }
+  .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+  .logo-svg { width: 24px; height: 24px; stroke: var(--accent); stroke-width: 8; fill: none; }
+  
   .nav-tabs { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
   .nav-tabs::-webkit-scrollbar { display: none; }
   .tab-btn {
@@ -66,7 +72,6 @@
   }
   input:focus, textarea:focus { border-bottom-color: var(--accent); }
 
-  /* –– TABLAS (HÁBITOS Y FINANZAS) –– */
   .table-wrapper { overflow-x: auto; margin-top: 10px; }
   table { width: 100%; border-collapse: collapse; min-width: 400px; }
   th { font-size: 0.75rem; color: var(--text-light); text-align: left; padding: 8px; }
@@ -79,7 +84,6 @@
   .day-cell.checked { background: var(--accent); position: relative; }
   .day-cell.checked::after { content: '✓'; color: white; font-size: 0.8rem; }
 
-  /* –– BOTONES –– */
   .btn-container { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
   .primary-btn { background: var(--accent); color: white; border: none; padding: 12px 25px; border-radius: 30px; cursor: pointer; }
   .add-btn { background: none; border: 1px dashed var(--stone); padding: 10px; width: 100%; border-radius: 10px; color: var(--text-light); cursor: pointer; margin-top: 10px; }
@@ -91,16 +95,15 @@
     font-size: 0.8rem; opacity: 0; transition: 0.3s; pointer-events: none;
   }
   .save-toast.show { opacity: 1; }
-
-  @media (max-width: 600px) {
-    .two-col { display: grid; grid-template-columns: 1fr; gap: 10px; }
-  }
 </style>
 </head>
 <body>
 
 <nav>
-  <span class="nav-logo">Reset ✦</span>
+  <div class="nav-logo">
+    <svg class="logo-svg" viewBox="0 0 100 100"><path d="M35 75 C 35 40, 35 25, 70 25 C 55 25, 35 40, 35 50 M35 50 C 50 50, 70 55, 70 75 C 55 72, 35 70, 35 50" stroke-linecap="round"/></svg>
+    Reset
+  </div>
   <div class="nav-tabs">
     <button class="tab-btn active" onclick="goTo('cover',this)">Inicio</button>
     <button class="tab-btn" onclick="goTo('status',this)">Estado</button>
@@ -113,9 +116,11 @@
 <main>
   <section class="page active" id="cover">
     <div style="text-align: center; padding: 40px 0;">
-      <span style="font-size: 3rem;">🌿</span>
+      <svg style="width: 80px; height: 80px; stroke: var(--accent); stroke-width: 5; fill: none; margin-bottom: 15px;" viewBox="0 0 100 100">
+        <path d="M35 75 C 35 40, 35 25, 70 25 C 55 25, 35 40, 35 50 M35 50 C 50 50, 70 55, 70 75 C 55 72, 35 70, 35 50" stroke-linecap="round"/>
+      </svg>
       <h1 style="font-family: 'Playfair Display', serif; font-size: 2.5rem;">Reset Your Life</h1>
-      <p style="font-style: italic; color: var(--text-light);">Un planificador para recuperar tu paz.</p>
+      <p style="font-style: italic; color: var(--text-light);">Tu refugio digital de paz.</p>
       <div class="card" style="margin-top: 30px; text-align: left;">
         <p>Este es tu espacio seguro. Úsalo para organizar tu mente, soltar el estrés y planear con intención.</p>
       </div>
@@ -125,24 +130,13 @@
 
   <section class="page" id="status">
     <div class="section-header"><h2>¿Cómo va todo?</h2></div>
-    <div class="card">
-      <label style="font-size: 0.9rem; color: var(--text-light);">¿Cómo te sientes en este momento?</label>
-      <textarea data-key="st_feel" placeholder="Escribe aquí..."></textarea>
-    </div>
-    <div class="card">
-      <label style="font-size: 0.9rem; color: var(--text-light);">¿Qué te está causando estrés?</label>
-      <textarea data-key="st_stress" placeholder="Sácalo de tu mente..."></textarea>
-    </div>
+    <div class="card"><label>¿Cómo te sientes en este momento?</label><textarea data-key="st_feel"></textarea></div>
+    <div class="card"><label>¿Qué te está causando estrés?</label><textarea data-key="st_stress"></textarea></div>
   </section>
 
   <section class="page" id="habits">
     <div class="section-header"><h2>Rastreador de Hábitos</h2></div>
-    <div class="table-wrapper">
-      <table>
-        <thead><tr id="hHead"></tr></thead>
-        <tbody id="hBody"></tbody>
-      </table>
-    </div>
+    <div class="table-wrapper"><table><thead><tr id="hHead"></tr></thead><tbody id="hBody"></tbody></table></div>
     <button class="add-btn" onclick="addHabit()">+ Nuevo Hábito</button>
   </section>
 
@@ -156,32 +150,20 @@
     <div class="card">
       <div class="table-wrapper">
         <table>
-          <thead>
-            <tr>
-              <th>Concepto</th>
-              <th style="width: 80px;">Ingreso</th>
-              <th style="width: 80px;">Gasto</th>
-              <th style="width: 40px;"></th>
-            </tr>
-          </thead>
+          <thead><tr><th>Concepto</th><th style="width:80px">Ingreso</th><th style="width:80px">Gasto</th><th style="width:40px"></th></tr></thead>
           <tbody id="fBody"></tbody>
         </table>
       </div>
       <button class="add-btn" onclick="addFinRow()">+ Agregar línea</button>
     </div>
-    <div class="card" style="background: var(--white);">
-      <div class="balance-card">
-        <span>Balance Total:</span>
-        <span id="totalBalance">$0.00</span>
-      </div>
-    </div>
+    <div class="card" style="background: var(--white);"><div class="balance-card"><span>Balance Total:</span><span id="totalBalance">$0.00</span></div></div>
   </section>
 </main>
 
 <div class="save-toast" id="toast">Cambios guardados</div>
 
 <script>
-// --- UTILIDADES ---
+// --- LÓGICA DE PERSISTENCIA Y FUNCIONAMIENTO ---
 const save = (k, v) => {
     localStorage.setItem('ryl_' + k, JSON.stringify(v));
     const t = document.getElementById('toast');
@@ -199,8 +181,8 @@ function goTo(id, btn) {
     window.scrollTo(0,0);
 }
 
-// --- HÁBITOS ---
-let habits = load('h_list', ['Beber agua', 'Hacer ejercicio']);
+// Hábitos
+let habits = load('h_list', ['Beber agua', 'Meditar']);
 function renderHabits() {
     const head = document.getElementById('hHead');
     const body = document.getElementById('hBody');
@@ -213,10 +195,7 @@ function renderHabits() {
             const checked = load(`h_${i}_${d}`, false);
             const td = document.createElement('td');
             td.className = `day-cell ${checked ? 'checked' : ''}`;
-            td.onclick = () => {
-                td.classList.toggle('checked');
-                save(`h_${i}_${d}`, td.classList.contains('checked'));
-            };
+            td.onclick = () => { td.classList.toggle('checked'); save(`h_${i}_${d}`, td.classList.contains('checked')); };
             tr.appendChild(td);
         }
         body.appendChild(tr);
@@ -225,7 +204,7 @@ function renderHabits() {
 function updateHName(i, v) { habits[i] = v; save('h_list', habits); }
 function addHabit() { habits.push('Nuevo'); save('h_list', habits); renderHabits(); }
 
-// --- FINANZAS (CORREGIDO PARA MÓVILES) ---
+// Finanzas
 let finData = load('f_data', [{desc: '', inc: '', exp: ''}]);
 function renderFinance() {
     const body = document.getElementById('fBody');
@@ -242,11 +221,7 @@ function renderFinance() {
     });
     calcTotal();
 }
-function updateFinData(i, field, val) {
-    finData[i][field] = val;
-    localStorage.setItem('ryl_f_data', JSON.stringify(finData));
-    calcTotal(); // Solo calcula el número, no refresca la tabla entera
-}
+function updateFinData(i, field, val) { finData[i][field] = val; localStorage.setItem('ryl_f_data', JSON.stringify(finData)); calcTotal(); }
 function calcTotal() {
     const total = finData.reduce((acc, r) => acc + (Number(r.inc)||0) - (Number(r.exp)||0), 0);
     const el = document.getElementById('totalBalance');
@@ -256,7 +231,7 @@ function calcTotal() {
 function addFinRow() { finData.push({desc:'', inc:'', exp:''}); renderFinance(); }
 function delFin(i) { finData.splice(i, 1); save('f_data', finData); renderFinance(); }
 
-// --- SEMANA ---
+// Semana
 const days = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
 function buildWeek() {
     const container = document.getElementById('weekContainer');
@@ -268,7 +243,6 @@ function buildWeek() {
     });
 }
 
-// --- INICIO ---
 document.addEventListener('DOMContentLoaded', () => {
     buildWeek();
     renderHabits();
