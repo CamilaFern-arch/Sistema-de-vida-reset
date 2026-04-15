@@ -1,0 +1,15 @@
+<style>
+  :root { --soft-green: #e9f0eb; --text: #5a6b5f; }
+  body { font-family: 'serif'; background: #fdfdfb; color: var(--text); padding: 20px; }
+  .card { background: white; border-radius: 15px; padding: 20px; border: 1px solid var(--soft-green); }
+  h2 { font-style: italic; font-weight: 400; border-bottom: 1px solid var(--soft-green); padding-bottom: 10px; }
+  textarea { width: 100%; border: none; background: var(--soft-green); border-radius: 8px; margin: 10px 0; padding: 10px; }
+</style>
+<div class="card">
+  <h2>Weekly Reflection ✨</h2>
+  <label>¿Qué salió bien esta semana?</label>
+  <textarea id="well" rows="3"></textarea>
+  <label>¿En qué puedo mejorar?</label>
+  <textarea id="improve" rows="3"></textarea>
+  <button onclick="alert('Guardado con calma...')">Guardar reflexión</button>
+</div>
