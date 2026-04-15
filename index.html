@@ -1,282 +1,914 @@
 <!DOCTYPE html>
-<html lang="es">
+
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Reset Your Life ✨</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reset Your Life — Soft Planner</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f0ece3;
+    --cream-dark: #e6e0d4;
+    --stone: #b8b0a2;
+    --text: #2d2926;
+    --text-light: #7a7268;
+    --accent: #8a9e85;
+    --accent-light: #d4e0d1;
+    --card-bg: #ece8df;
+    --white: #faf8f4;
+    --shadow: 0 4px 24px rgba(45,41,38,0.07);
+  }
 
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3039/3039527.png">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300;1,600&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+- { box-sizing: border-box; margin: 0; padding: 0; }
 
-    <style>
-        :root {
-            --bg: #fdfcf9;
-            --sage: #8da399;
-            --soft-sage: #eef2f0;
-            --gold: #c5a880;
-            --text: #3d4441;
-        }
+body {
+font-family: ‘Jost’, sans-serif;
+background: var(–cream);
+color: var(–text);
+min-height: 100vh;
+}
 
-        /* Limpieza de interfaz GitHub */
-        header, #banner, .gh-header, .js-header-wrapper { display: none !important; }
+/* –– NAV –– */
+nav {
+position: fixed; top: 0; left: 0; right: 0;
+background: var(–white);
+border-bottom: 1px solid var(–cream-dark);
+display: flex; align-items: center; justify-content: space-between;
+padding: 0 32px; height: 60px;
+z-index: 100;
+box-shadow: 0 2px 12px rgba(45,41,38,0.05);
+}
+.nav-logo {
+font-family: ‘Playfair Display’, serif;
+font-size: 1.1rem;
+letter-spacing: 0.02em;
+color: var(–text);
+}
+.nav-tabs {
+display: flex; gap: 4px;
+overflow-x: auto; scrollbar-width: none;
+}
+.nav-tabs::-webkit-scrollbar { display: none; }
+.tab-btn {
+background: none; border: none; cursor: pointer;
+padding: 6px 14px; border-radius: 20px;
+font-family: ‘Jost’, sans-serif; font-size: 0.78rem;
+font-weight: 400; color: var(–text-light);
+transition: all 0.2s; white-space: nowrap;
+}
+.tab-btn.active {
+background: var(–accent); color: white; font-weight: 500;
+}
+.tab-btn:hover:not(.active) { background: var(–cream); color: var(–text); }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+/* –– MAIN –– */
+main {
+max-width: 760px; margin: 0 auto;
+padding: 80px 20px 60px;
+}
 
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            padding: env(safe-area-inset-top) 20px 100px;
-        }
+.page { display: none; animation: fadeIn 0.35s ease; }
+.page.active { display: block; }
 
-        /* Estética de Lujo */
-        .premium-header {
-            text-align: center;
-            padding: 50px 0 30px;
-        }
+@keyframes fadeIn {
+from { opacity: 0; transform: translateY(10px); }
+to   { opacity: 1; transform: translateY(0); }
+}
 
-        .premium-header h1 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 34px;
-            font-weight: 300;
-            font-style: italic;
-            color: var(--sage);
-            letter-spacing: 1px;
-        }
+/* –– COVER –– */
+.cover {
+text-align: center;
+padding: 60px 20px 40px;
+position: relative;
+}
+.leaf-deco {
+font-size: 3rem; margin-bottom: 16px;
+display: block; opacity: 0.5;
+}
+.cover h1 {
+font-family: ‘Playfair Display’, serif;
+font-size: clamp(2.4rem, 6vw, 3.6rem);
+line-height: 1.1;
+letter-spacing: -0.01em;
+color: var(–text);
+}
+.cover p {
+font-size: 1rem; color: var(–text-light);
+margin-top: 12px; font-style: italic;
+letter-spacing: 0.04em;
+}
+.cover-card {
+background: var(–card-bg);
+border-radius: 20px;
+padding: 28px 32px;
+margin-top: 40px;
+text-align: left;
+}
+.cover-card p {
+font-size: 1.05rem; line-height: 1.8;
+color: var(–text); font-style: normal;
+letter-spacing: 0;
+}
+.cover-card p strong {
+display: block; margin-top: 8px;
+font-weight: 500; color: var(–text-light);
+font-size: 0.9rem;
+}
+.start-btn {
+margin-top: 32px;
+background: var(–accent); color: white;
+border: none; padding: 14px 36px;
+border-radius: 40px; font-family: ‘Jost’, sans-serif;
+font-size: 0.9rem; font-weight: 500; cursor: pointer;
+transition: all 0.2s; letter-spacing: 0.04em;
+}
+.start-btn:hover { background: #7a8e75; transform: translateY(-1px); }
 
-        .quote {
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: var(--gold);
-            margin-top: 5px;
-            font-weight: 600;
-        }
+/* –– SECTION HEADER –– */
+.section-header {
+margin-bottom: 28px;
+padding-bottom: 14px;
+border-bottom: 1.5px solid var(–stone);
+}
+.section-header h2 {
+font-family: ‘Playfair Display’, serif;
+font-size: clamp(1.6rem, 4vw, 2.2rem);
+font-weight: 700;
+}
 
-        /* Tarjetas Estilo Boutique */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(10px);
-            border-radius: 25px;
-            padding: 25px;
-            margin-bottom: 25px;
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 10px 30px rgba(141, 163, 153, 0.1);
-        }
+/* –– CARDS –– */
+.card {
+background: var(–card-bg);
+border-radius: 16px;
+padding: 24px 28px;
+margin-bottom: 20px;
+}
+.card-label {
+font-size: 0.75rem; font-weight: 500;
+text-transform: uppercase; letter-spacing: 0.12em;
+color: var(–text-light); margin-bottom: 12px;
+}
 
-        .section-label {
-            font-size: 10px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--sage);
-            margin-bottom: 20px;
-            display: block;
-            border-left: 2px solid var(--gold);
-            padding-left: 10px;
-        }
+/* –– INPUTS –– */
+textarea, input[type=“text”], input[type=“number”], input[type=“date”] {
+width: 100%; background: transparent;
+border: none; border-bottom: 1.5px solid var(–stone);
+padding: 8px 0; margin-bottom: 10px;
+font-family: ‘Jost’, sans-serif; font-size: 0.95rem;
+color: var(–text); outline: none; resize: none;
+transition: border-color 0.2s;
+}
+textarea:focus, input:focus { border-bottom-color: var(–accent); }
+textarea { min-height: 90px; }
 
-        /* Mood Tracker Luxury */
-        .mood-grid {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 0;
-        }
+.field-group { margin-bottom: 20px; }
+.field-label {
+font-size: 0.88rem; color: var(–text-light);
+margin-bottom: 6px; display: block;
+}
 
-        .mood-item {
-            font-size: 26px;
-            filter: grayscale(100%);
-            opacity: 0.3;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            cursor: pointer;
-        }
+/* –– TWO-COL –– */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+@media (max-width: 520px) { .two-col { grid-template-columns: 1fr; } }
 
-        .mood-item.active {
-            filter: grayscale(0%);
-            opacity: 1;
-            transform: scale(1.3);
-        }
+/* –– GOALS –– */
+.goal-card {
+background: var(–card-bg);
+border-radius: 16px; padding: 22px 24px;
+margin-bottom: 18px;
+}
+.goal-card h3 {
+font-family: ‘Playfair Display’, serif;
+font-size: 1.05rem; text-align: center;
+margin-bottom: 4px;
+}
+.goal-card .goal-subtitle {
+font-size: 0.8rem; color: var(–text-light);
+text-align: center; margin-bottom: 16px;
+}
+.goal-line {
+display: flex; align-items: center; gap: 10px;
+margin-bottom: 10px;
+}
+.goal-num {
+font-size: 1.1rem; color: var(–cream-dark);
+font-family: ‘Playfair Display’, serif;
+font-weight: 700; min-width: 24px;
+}
 
-        /* Habit Tracker Minimal */
-        .habit-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-        }
+/* –– HABIT TRACKER –– */
+.habit-tracker { overflow-x: auto; }
+.habit-table {
+width: 100%; border-collapse: collapse;
+font-size: 0.7rem; min-width: 560px;
+}
+.habit-table th {
+padding: 6px 4px; text-align: center;
+color: var(–text-light); font-weight: 400;
+}
+.habit-table td {
+border: 1px solid var(–cream-dark);
+height: 32px; text-align: center;
+}
+.habit-name-cell {
+min-width: 110px; padding: 4px 8px;
+}
+.habit-name-input {
+border: none; border-bottom: none !important;
+background: transparent; font-size: 0.78rem;
+width: 100%; padding: 0; margin: 0;
+color: var(–text);
+}
+.day-cell {
+cursor: pointer; transition: background 0.15s;
+width: 22px;
+}
+.day-cell.checked { background: var(–accent); }
+.day-cell.checked::after { content: ‘✓’; color: white; font-size: 0.7rem; }
 
-        .habit-name { flex: 1; font-size: 14px; font-weight: 300; }
+.add-habit-btn {
+background: none; border: 1.5px dashed var(–stone);
+border-radius: 10px; padding: 10px;
+width: 100%; cursor: pointer; color: var(–text-light);
+font-family: ‘Jost’, sans-serif; font-size: 0.82rem;
+margin-top: 12px; transition: all 0.2s;
+}
+.add-habit-btn:hover { border-color: var(–accent); color: var(–accent); }
 
-        .dots-group { display: flex; gap: 6px; }
+/* –– WEEKLY PLANNER –– */
+.week-grid {
+display: grid; grid-template-columns: repeat(7,1fr);
+gap: 8px; margin-bottom: 24px;
+}
+.day-col { display: flex; flex-direction: column; }
+.day-col .day-head {
+font-size: 0.68rem; font-weight: 500; color: var(–text-light);
+text-align: center; margin-bottom: 6px;
+text-transform: uppercase; letter-spacing: 0.08em;
+}
+.day-col textarea {
+flex: 1; min-height: 120px; font-size: 0.78rem;
+border: 1px solid var(–cream-dark); border-radius: 10px;
+padding: 8px; background: var(–card-bg);
+resize: none;
+}
+@media (max-width: 580px) {
+.week-grid { grid-template-columns: repeat(2,1fr); }
+}
 
-        .habit-dot {
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-            border: 1px solid var(--soft-sage);
-            transition: 0.3s;
-        }
+/* –– DAILY RESET –– */
+.daily-grid {
+display: grid; grid-template-columns: 1fr;
+gap: 16px;
+}
+.daily-card {
+background: var(–card-bg); border-radius: 14px;
+padding: 20px 24px;
+}
+.daily-card h3 {
+font-family: ‘Playfair Display’, serif;
+font-size: 0.95rem; text-align: center; margin-bottom: 14px;
+color: var(–text-light);
+}
+.priority-item {
+display: flex; align-items: center; gap: 10px;
+margin-bottom: 8px;
+}
+.priority-check {
+width: 18px; height: 18px; border-radius: 50%;
+border: 1.5px solid var(–stone); flex-shrink: 0;
+cursor: pointer; transition: all 0.15s;
+display: flex; align-items: center; justify-content: center;
+}
+.priority-check.done { background: var(–accent); border-color: var(–accent); }
+.priority-check.done::after { content: ‘✓’; color: white; font-size: 0.65rem; }
 
-        .habit-dot.checked {
-            background-color: var(--sage);
-            border-color: var(--sage);
-            box-shadow: 0 0 10px rgba(141, 163, 153, 0.3);
-        }
+/* –– MOOD TRACKER –– */
+.energy-dots { display: flex; gap: 10px; margin: 10px 0 20px; }
+.energy-dot {
+width: 32px; height: 32px; border-radius: 50%;
+border: 1.5px solid var(–stone); cursor: pointer;
+transition: all 0.2s; display: flex;
+align-items: center; justify-content: center;
+font-size: 0.7rem; color: var(–text-light);
+}
+.energy-dot.active { background: var(–accent); border-color: var(–accent); color: white; }
 
-        /* Finanzas Elegantes */
-        .finance-row {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 10px;
-            gap: 15px;
-        }
+/* –– FINANCE –– */
+.finance-table { width: 100%; border-collapse: collapse; }
+.finance-table th {
+text-align: left; padding: 10px 8px;
+font-size: 0.78rem; color: var(–text-light);
+font-weight: 400; border-bottom: 1px solid var(–cream-dark);
+}
+.finance-table td {
+padding: 6px 4px; border-bottom: 1px solid var(–cream-dark);
+}
+.finance-table input {
+border-bottom: none !important; margin: 0;
+font-size: 0.85rem; padding: 4px 4px;
+}
+.finance-summary {
+margin-top: 20px; background: var(–card-bg);
+border-radius: 12px; padding: 16px 20px;
+}
+.finance-row {
+display: flex; justify-content: space-between;
+padding: 6px 0; font-size: 0.9rem;
+border-bottom: 1px solid var(–cream-dark);
+}
+.finance-row:last-child { border-bottom: none; font-weight: 500; }
+.income-val { color: var(–accent); }
+.expense-val { color: #b07070; }
 
-        .fin-input-group {
-            flex: 1;
-            background: var(--soft-sage);
-            padding: 12px;
-            border-radius: 15px;
-            text-align: center;
-        }
+.add-row-btn {
+background: none; border: none; cursor: pointer;
+color: var(–text-light); font-size: 0.8rem;
+font-family: ‘Jost’, sans-serif; padding: 8px 0;
+transition: color 0.2s;
+}
+.add-row-btn:hover { color: var(–accent); }
 
-        .fin-input-group label { font-size: 9px; display: block; margin-bottom: 5px; opacity: 0.6; }
+/* –– REFLECTION –– */
+.reflection-cards { display: grid; gap: 14px; }
+.refl-card {
+background: var(–card-bg); border-radius: 14px;
+padding: 18px 22px;
+}
+.refl-card h3 {
+font-family: ‘Playfair Display’, serif;
+font-size: 0.95rem; text-align: center;
+margin-bottom: 12px; color: var(–text-light);
+}
 
-        .fin-input-group input {
-            width: 100%;
-            background: transparent;
-            border: none;
-            text-align: center;
-            font-size: 16px;
-            font-family: inherit;
-            font-weight: 600;
-            color: var(--text);
-            outline: none;
-        }
+/* –– HOME RESET –– */
+.checklist-section { margin-bottom: 24px; }
+.checklist-section h3 {
+font-family: ‘Playfair Display’, serif;
+font-size: 1rem; text-align: center; margin-bottom: 12px;
+color: var(–text-light);
+}
+.check-grid {
+background: var(–card-bg); border-radius: 14px;
+padding: 16px 20px;
+}
+.check-item {
+display: flex; align-items: center; gap: 12px;
+padding: 8px 0; cursor: pointer;
+border-bottom: 1px solid var(–cream-dark);
+transition: opacity 0.2s;
+}
+.check-item:last-child { border-bottom: none; }
+.check-box {
+width: 18px; height: 18px; border: 1.5px solid var(–stone);
+border-radius: 3px; flex-shrink: 0; transition: all 0.15s;
+display: flex; align-items: center; justify-content: center;
+}
+.check-item.done .check-box {
+background: var(–accent); border-color: var(–accent);
+}
+.check-item.done .check-box::after { content: ‘✓’; color: white; font-size: 0.65rem; }
+.check-item.done .check-text {
+text-decoration: line-through; color: var(–text-light);
+}
+.check-text { font-size: 0.9rem; }
 
-        .balance-display {
-            text-align: center;
-            margin-top: 20px;
-            padding-top: 15px;
-            border-top: 1px dashed var(--soft-sage);
-        }
+/* –– CLOSING –– */
+.closing {
+text-align: center; padding: 40px 20px;
+}
+.closing h2 {
+font-family: ‘Playfair Display’, serif;
+font-size: clamp(1.6rem, 4vw, 2.2rem);
+line-height: 1.3; margin-bottom: 24px;
+}
+.closing .taglines {
+font-size: 1rem; color: var(–text-light);
+line-height: 2.2;
+}
 
-        .balance-amount {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 32px;
-            color: var(--sage);
-        }
+/* –– SAVE BANNER –– */
+.save-bar {
+position: fixed; bottom: 20px; right: 20px;
+background: var(–accent); color: white;
+padding: 10px 22px; border-radius: 30px;
+font-size: 0.82rem; font-family: ‘Jost’, sans-serif;
+opacity: 0; pointer-events: none;
+transition: opacity 0.4s;
+box-shadow: 0 4px 16px rgba(138,158,133,0.4);
+}
+.save-bar.show { opacity: 1; }
 
-        /* Botón de Guardado Gold */
-        .save-button {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80%;
-            background: var(--sage);
-            color: white;
-            padding: 18px;
-            border-radius: 50px;
-            border: none;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 600;
-            font-size: 14px;
-            letter-spacing: 2px;
-            box-shadow: 0 15px 30px rgba(141, 163, 153, 0.3);
-            cursor: pointer;
-        }
+/* –– WEEK DATE –– */
+.week-date {
+font-size: 0.82rem; color: var(–text-light);
+margin-bottom: 16px;
+}
+.week-date input[type=“date”] {
+display: inline; width: auto;
+border-bottom: 1px solid var(–stone);
+font-size: 0.82rem; margin-bottom: 0;
+}
+</style>
 
-        .save-button:active { transform: translateX(-50%) scale(0.96); }
-
-    </style>
 </head>
 <body>
 
-    <div class="premium-header">
-        <h1>Reset Your Life</h1>
-        <div class="quote">Soft Productivity</div>
+<nav>
+  <span class="nav-logo">Reset Your Life ✦</span>
+  <div class="nav-tabs" id="navTabs">
+    <button class="tab-btn active" onclick="goTo('cover',this)">Home</button>
+    <button class="tab-btn" onclick="goTo('where',this)">Check-in</button>
+    <button class="tab-btn" onclick="goTo('ideal',this)">Ideal Life</button>
+    <button class="tab-btn" onclick="goTo('goals',this)">Goals</button>
+    <button class="tab-btn" onclick="goTo('habits',this)">Habits</button>
+    <button class="tab-btn" onclick="goTo('weekly',this)">Weekly</button>
+    <button class="tab-btn" onclick="goTo('daily',this)">Daily</button>
+    <button class="tab-btn" onclick="goTo('mood',this)">Mood</button>
+    <button class="tab-btn" onclick="goTo('finance',this)">Finance</button>
+    <button class="tab-btn" onclick="goTo('reflection',this)">Reflection</button>
+    <button class="tab-btn" onclick="goTo('home-reset',this)">Home</button>
+  </div>
+</nav>
+
+<main>
+
+  <!-- COVER -->
+
+  <section class="page active" id="cover">
+    <div class="cover">
+      <span class="leaf-deco">🌿</span>
+      <h1>Reset Your Life</h1>
+      <p>A soft productivity planner</p>
+      <div class="cover-card">
+        <p>This planner is designed to help you reset your life with clarity, calm and intention.</p>
+        <p><strong>No pressure. Just progress.</strong></p>
+      </div>
+      <button class="start-btn" onclick="goTo('where', document.querySelectorAll('.tab-btn')[1])">Begin your reset →</button>
     </div>
+  </section>
 
-    <div class="glass-card">
-        <span class="section-label">Estado de Ánimo</span>
-        <div class="mood-grid">
-            <span class="mood-item" onclick="selectMood(this)">🌿</span>
-            <span class="mood-item" onclick="selectMood(this)">☁️</span>
-            <span class="mood-item" onclick="selectMood(this)">✨</span>
-            <span class="mood-item" onclick="selectMood(this)">🌙</span>
-            <span class="mood-item" onclick="selectMood(this)">☀️</span>
-        </div>
+  <!-- WHERE AM I -->
+
+  <section class="page" id="where">
+    <div class="section-header">
+      <h2>Where Am I Right Now?</h2>
     </div>
-
-    <div class="glass-card">
-        <span class="section-label">Hábitos de Bienestar</span>
-        <div id="habit-list">
-            </div>
+    <div class="field-group">
+      <label class="field-label">How do I feel right now?</label>
+      <textarea placeholder="Write freely…" data-key="where_feel"></textarea>
     </div>
-
-    <div class="glass-card">
-        <span class="section-label">Balance Consciente</span>
-        <div class="finance-row">
-            <div class="fin-input-group">
-                <label>Ingresos</label>
-                <input type="number" id="in-val" value="0" oninput="updateBalance()">
-            </div>
-            <div class="fin-input-group">
-                <label>Gastos</label>
-                <input type="number" id="ex-val" value="0" oninput="updateBalance()">
-            </div>
-        </div>
-        <div class="balance-display">
-            <label style="font-size: 10px; letter-spacing: 1px;">DISPONIBLE</label>
-            <div class="balance-amount" id="total-bal">$0.00</div>
-        </div>
+    <div class="field-group">
+      <label class="field-label">What is currently stressing me?</label>
+      <textarea placeholder="Let it out…" data-key="where_stress"></textarea>
     </div>
+    <div class="field-group">
+      <label class="field-label">What do I want to change?</label>
+      <textarea placeholder="Dream a little…" data-key="where_change"></textarea>
+    </div>
+  </section>
 
-    <button class="save-button" onclick="saveExperience()">GUARDAR PROGRESO</button>
+  <!-- IDEAL LIFE -->
 
-    <script>
-        // Configuración de Hábitos (Personaliza estos nombres si quieres)
-        const myHabits = ["Lectura Consciente", "Movimiento Suave", "Hidratación", "Momentos de Paz"];
-        const listContainer = document.getElementById('habit-list');
+  <section class="page" id="ideal">
+    <div class="section-header">
+      <h2>My Ideal Life</h2>
+    </div>
+    <div class="field-group">
+      <label class="field-label">My ideal routine</label>
+      <textarea placeholder="Morning to night…" data-key="ideal_routine"></textarea>
+    </div>
+    <div class="two-col">
+      <div class="field-group">
+        <label class="field-label">How I want to feel</label>
+        <textarea style="min-height:120px" placeholder="Emotions, states…" data-key="ideal_feel"></textarea>
+      </div>
+      <div class="field-group">
+        <label class="field-label">What I want to achieve</label>
+        <textarea style="min-height:120px" placeholder="Goals, dreams…" data-key="ideal_achieve"></textarea>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-label">My vision in one sentence</div>
+      <textarea style="min-height:60px" placeholder="I am living a life that…" data-key="ideal_vision"></textarea>
+    </div>
+  </section>
 
-        myHabits.forEach(name => {
-            const div = document.createElement('div');
-            div.className = 'habit-item';
-            div.innerHTML = `
-                <span class="habit-name">${name}</span>
-                <div class="dots-group">
-                    ${Array(7).fill().map(() => `<div class="habit-dot" onclick="this.classList.toggle('checked')"></div>`).join('')}
-                </div>
-            `;
-            listContainer.appendChild(div);
-        });
+  <!-- GOALS -->
 
-        function selectMood(el) {
-            document.querySelectorAll('.mood-item').forEach(i => i.classList.remove('active'));
-            el.classList.add('active');
-        }
+  <section class="page" id="goals">
+    <div class="section-header">
+      <h2>My Focus Goals</h2>
+    </div>
+    <div class="goal-card">
+      <h3>Goal 1</h3>
+      <p class="goal-subtitle">What is my goal?</p>
+      <div class="goal-line"><span class="goal-num">01</span><input type="text" placeholder="First action…" data-key="g1_1"></div>
+      <div class="goal-line"><span class="goal-num">02</span><input type="text" placeholder="Second action…" data-key="g1_2"></div>
+      <div class="goal-line"><span class="goal-num">03</span><input type="text" placeholder="Third action…" data-key="g1_3"></div>
+    </div>
+    <div class="goal-card">
+      <h3>Goal 2</h3>
+      <p class="goal-subtitle">Why is this important?</p>
+      <div class="goal-line"><span class="goal-num">01</span><input type="text" placeholder="First reason…" data-key="g2_1"></div>
+      <div class="goal-line"><span class="goal-num">02</span><input type="text" placeholder="Second reason…" data-key="g2_2"></div>
+      <div class="goal-line"><span class="goal-num">03</span><input type="text" placeholder="Third reason…" data-key="g2_3"></div>
+    </div>
+    <div class="goal-card">
+      <h3>Goal 3</h3>
+      <p class="goal-subtitle">First small step</p>
+      <div class="goal-line"><span class="goal-num">01</span><input type="text" placeholder="Step one…" data-key="g3_1"></div>
+      <div class="goal-line"><span class="goal-num">02</span><input type="text" placeholder="Step two…" data-key="g3_2"></div>
+      <div class="goal-line"><span class="goal-num">03</span><input type="text" placeholder="Step three…" data-key="g3_3"></div>
+    </div>
+  </section>
 
-        function updateBalance() {
-            const inc = parseFloat(document.getElementById('in-val').value) || 0;
-            const exp = parseFloat(document.getElementById('ex-val').value) || 0;
-            document.getElementById('total-bal').innerText = `$${(inc - exp).toLocaleString()}`;
-        }
+  <!-- HABITS -->
 
-        function saveExperience() {
-            // Animación simple de feedback
-            const btn = document.querySelector('.save-button');
-            const originalText = btn.innerText;
-            btn.innerText = "PROGRESO GUARDADO ✨";
-            btn.style.background = "#c5a880";
-            
-            setTimeout(() => {
-                btn.innerText = originalText;
-                btn.style.background = "#8da399";
-            }, 2000);
-        }
-    </style>
+  <section class="page" id="habits">
+    <div class="section-header">
+      <h2>Habit Tracker</h2>
+    </div>
+    <div class="habit-tracker">
+      <table class="habit-table" id="habitTable">
+        <thead>
+          <tr>
+            <th style="text-align:left;padding-left:8px">Habit</th>
+            <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th>
+            <th>8</th><th>9</th><th>10</th><th>11</th><th>12</th><th>13</th><th>14</th>
+            <th>15</th><th>16</th><th>17</th><th>18</th><th>19</th><th>20</th><th>21</th>
+            <th>22</th><th>23</th><th>24</th><th>25</th><th>26</th><th>27</th><th>28</th>
+            <th>29</th><th>30</th><th>31</th>
+          </tr>
+        </thead>
+        <tbody id="habitBody"></tbody>
+      </table>
+    </div>
+    <button class="add-habit-btn" onclick="addHabit()">+ Add habit</button>
+  </section>
+
+  <!-- WEEKLY -->
+
+  <section class="page" id="weekly">
+    <div class="section-header">
+      <h2>Weekly Planner</h2>
+    </div>
+    <div class="week-date">
+      Week of: <input type="date" data-key="week_date">
+    </div>
+    <div class="week-grid" id="weekGrid"></div>
+    <div class="two-col">
+      <div class="field-group">
+        <label class="field-label">Top Priority</label>
+        <textarea style="min-height:80px" placeholder="This week's #1 focus…" data-key="week_priority"></textarea>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Notes</label>
+        <textarea style="min-height:80px" placeholder="Anything else…" data-key="week_notes"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- DAILY RESET -->
+
+  <section class="page" id="daily">
+    <div class="section-header">
+      <h2>Daily Reset</h2>
+    </div>
+    <div class="field-group">
+      <label class="field-label">Date</label>
+      <input type="date" data-key="daily_date" style="width:auto">
+    </div>
+    <div class="daily-grid">
+      <div class="daily-card">
+        <h3>Morning Routine</h3>
+        <textarea placeholder="What you'll do each morning…" data-key="daily_morning"></textarea>
+      </div>
+      <div class="daily-card">
+        <h3>Top 4 Priorities</h3>
+        <div id="priorityList"></div>
+      </div>
+      <div class="daily-card">
+        <h3>Night Routine</h3>
+        <textarea placeholder="Wind down…" data-key="daily_night"></textarea>
+      </div>
+      <div class="daily-card">
+        <h3>How do you feel today?</h3>
+        <textarea style="min-height:60px" placeholder="A word, a feeling…" data-key="daily_feel"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- MOOD -->
+
+  <section class="page" id="mood">
+    <div class="section-header">
+      <h2>Mood & Energy Tracker</h2>
+    </div>
+    <div class="card">
+      <div class="field-group">
+        <label class="field-label">How do you feel today?</label>
+        <textarea placeholder="Describe your mood…" data-key="mood_feel"></textarea>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Energy level</div>
+        <div class="energy-dots" id="energyDots"></div>
+      </div>
+      <div class="field-group">
+        <label class="field-label">What affected my mood?</label>
+        <textarea placeholder="People, events, sleep…" data-key="mood_affected"></textarea>
+      </div>
+      <div class="field-group">
+        <label class="field-label">One thing I can do to improve tomorrow</label>
+        <input type="text" placeholder="Small action…" data-key="mood_improve">
+      </div>
+    </div>
+  </section>
+
+  <!-- FINANCE -->
+
+  <section class="page" id="finance">
+    <div class="section-header">
+      <h2>Finance Tracker</h2>
+    </div>
+    <table class="finance-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Description</th>
+          <th>Income</th>
+          <th>Expense</th>
+        </tr>
+      </thead>
+      <tbody id="financeBody"></tbody>
+    </table>
+    <button class="add-row-btn" onclick="addFinanceRow()">+ Add row</button>
+    <div class="finance-summary">
+      <div class="finance-row"><span>Total Income</span><span class="income-val" id="totalIncome">$0.00</span></div>
+      <div class="finance-row"><span>Total Expenses</span><span class="expense-val" id="totalExpense">$0.00</span></div>
+      <div class="finance-row"><span>Balance</span><span id="totalBalance">$0.00</span></div>
+    </div>
+  </section>
+
+  <!-- REFLECTION -->
+
+  <section class="page" id="reflection">
+    <div class="section-header">
+      <h2>Weekly Reflection</h2>
+    </div>
+    <div class="week-date">Week of: <input type="date" data-key="refl_date"></div>
+    <div class="reflection-cards">
+      <div class="refl-card">
+        <h3>What went well this week?</h3>
+        <textarea placeholder="Celebrate your wins…" data-key="refl_well"></textarea>
+      </div>
+      <div class="refl-card">
+        <h3>What can I improve?</h3>
+        <textarea placeholder="Be honest, be kind…" data-key="refl_improve"></textarea>
+      </div>
+      <div class="refl-card">
+        <h3>How did I feel overall?</h3>
+        <textarea placeholder="Emotionally, physically…" data-key="refl_feel"></textarea>
+      </div>
+      <div class="refl-card">
+        <h3>What will I focus on next week?</h3>
+        <textarea placeholder="Your intention…" data-key="refl_focus"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOME RESET -->
+
+  <section class="page" id="home-reset">
+    <div class="section-header">
+      <h2>Home Reset Checklist</h2>
+    </div>
+    <div class="week-date">Reset Day: <input type="date" data-key="reset_day"></div>
+    <div class="checklist-section">
+      <h3>Daily Reset</h3>
+      <div class="check-grid" id="dailyChecks"></div>
+    </div>
+    <div class="checklist-section">
+      <h3>Deep Reset</h3>
+      <div class="check-grid" id="deepChecks"></div>
+    </div>
+  </section>
+
+  <!-- CLOSING (hidden tab, accessed after home-reset) -->
+
+</main>
+
+<div class="save-bar" id="saveBanner">Saved ✓</div>
+
+<script>
+// ---- PAGE NAV ----
+function goTo(id, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ---- LOCAL STORAGE ----
+function save(key, val) {
+  localStorage.setItem('ryl_' + key, val);
+  showSave();
+}
+function load(key) { return localStorage.getItem('ryl_' + key) || ''; }
+function showSave() {
+  const b = document.getElementById('saveBanner');
+  b.classList.add('show');
+  clearTimeout(b._t);
+  b._t = setTimeout(() => b.classList.remove('show'), 1800);
+}
+
+// ---- BIND TEXT INPUTS ----
+function bindInputs() {
+  document.querySelectorAll('[data-key]').forEach(el => {
+    const key = el.dataset.key;
+    el.value = load(key);
+    el.addEventListener('input', () => save(key, el.value));
+  });
+}
+
+// ---- WEEKLY PLANNER ----
+const DAYS = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+function buildWeek() {
+  const grid = document.getElementById('weekGrid');
+  DAYS.forEach(d => {
+    const col = document.createElement('div');
+    col.className = 'day-col';
+    col.innerHTML = `<div class="day-head">${d}</div>`;
+    const ta = document.createElement('textarea');
+    ta.dataset.key = 'week_' + d;
+    ta.value = load('week_' + d);
+    ta.addEventListener('input', () => save('week_' + d, ta.value));
+    col.appendChild(ta);
+    grid.appendChild(col);
+  });
+}
+
+// ---- PRIORITY LIST ----
+function buildPriorities() {
+  const list = document.getElementById('priorityList');
+  for (let i = 1; i <= 4; i++) {
+    const row = document.createElement('div');
+    row.className = 'priority-item';
+    const check = document.createElement('div');
+    check.className = 'priority-check' + (load('p_done_'+i)==='1' ? ' done' : '');
+    check.onclick = () => {
+      check.classList.toggle('done');
+      save('p_done_'+i, check.classList.contains('done') ? '1' : '0');
+    };
+    const inp = document.createElement('input');
+    inp.type = 'text';
+    inp.placeholder = 'Priority ' + i + '…';
+    inp.dataset.key = 'priority_' + i;
+    inp.value = load('priority_' + i);
+    inp.addEventListener('input', () => save('priority_' + i, inp.value));
+    row.appendChild(check);
+    row.appendChild(inp);
+    list.appendChild(row);
+  }
+}
+
+// ---- ENERGY DOTS ----
+function buildEnergy() {
+  const container = document.getElementById('energyDots');
+  const saved = parseInt(load('energy_level')) || 0;
+  for (let i = 1; i <= 5; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'energy-dot' + (i <= saved ? ' active' : '');
+    dot.textContent = i;
+    dot.onclick = () => {
+      save('energy_level', i);
+      document.querySelectorAll('.energy-dot').forEach((d,idx) => {
+        d.classList.toggle('active', idx < i);
+      });
+    };
+    container.appendChild(dot);
+  }
+}
+
+// ---- HABITS ----
+let habits = JSON.parse(load('habits_list') || '[]');
+if (!habits.length) habits = ['Drink water','Exercise','Read','Meditate'];
+
+function renderHabits() {
+  const tbody = document.getElementById('habitBody');
+  tbody.innerHTML = '';
+  habits.forEach((name, hi) => {
+    const tr = document.createElement('tr');
+    const nameTd = document.createElement('td');
+    nameTd.className = 'habit-name-cell';
+    const nameInp = document.createElement('input');
+    nameInp.className = 'habit-name-input';
+    nameInp.value = name;
+    nameInp.addEventListener('input', e => {
+      habits[hi] = e.target.value;
+      save('habits_list', JSON.stringify(habits));
+    });
+    nameTd.appendChild(nameInp);
+    tr.appendChild(nameTd);
+    for (let d = 1; d <= 31; d++) {
+      const td = document.createElement('td');
+      td.className = 'day-cell' + (load(`h_${hi}_${d}`) === '1' ? ' checked' : '');
+      td.onclick = () => {
+        td.classList.toggle('checked');
+        save(`h_${hi}_${d}`, td.classList.contains('checked') ? '1' : '0');
+      };
+      tr.appendChild(td);
+    }
+    tbody.appendChild(tr);
+  });
+}
+
+function addHabit() {
+  habits.push('New habit');
+  save('habits_list', JSON.stringify(habits));
+  renderHabits();
+}
+
+// ---- FINANCE ----
+let finRows = JSON.parse(load('fin_rows') || '[]');
+if (!finRows.length) finRows = [{date:'',desc:'',income:'',expense:''}];
+
+function renderFinance() {
+  const tbody = document.getElementById('financeBody');
+  tbody.innerHTML = '';
+  finRows.forEach((row, i) => {
+    const tr = document.createElement('tr');
+    ['date','desc','income','expense'].forEach(field => {
+      const td = document.createElement('td');
+      const inp = document.createElement('input');
+      inp.type = field === 'date' ? 'date' : 'text';
+      inp.value = row[field];
+      inp.placeholder = field === 'income' ? '0.00' : field === 'expense' ? '0.00' : '';
+      inp.addEventListener('input', e => {
+        finRows[i][field] = e.target.value;
+        save('fin_rows', JSON.stringify(finRows));
+        updateTotals();
+      });
+      td.appendChild(inp);
+      tr.appendChild(td);
+    });
+    tbody.appendChild(tr);
+  });
+  updateTotals();
+}
+
+function addFinanceRow() {
+  finRows.push({date:'',desc:'',income:'',expense:''});
+  save('fin_rows', JSON.stringify(finRows));
+  renderFinance();
+}
+
+function updateTotals() {
+  let inc = 0, exp = 0;
+  finRows.forEach(r => {
+    inc += parseFloat(r.income) || 0;
+    exp += parseFloat(r.expense) || 0;
+  });
+  const bal = inc - exp;
+  document.getElementById('totalIncome').textContent = '$' + inc.toFixed(2);
+  document.getElementById('totalExpense').textContent = '$' + exp.toFixed(2);
+  const balEl = document.getElementById('totalBalance');
+  balEl.textContent = '$' + bal.toFixed(2);
+  balEl.style.color = bal >= 0 ? 'var(--accent)' : '#b07070';
+}
+
+// ---- CHECKLISTS ----
+const dailyItems = ['Make the bed','Clean surfaces','Tidy workspace','Do the dishes'];
+const deepItems  = ['Laundry','Organize closet','Clean bathroom','Declutter'];
+
+function buildChecklist(items, containerId, prefix) {
+  const container = document.getElementById(containerId);
+  items.forEach((item, i) => {
+    const el = document.createElement('div');
+    el.className = 'check-item' + (load(prefix+i)==='1' ? ' done' : '');
+    el.innerHTML = `<div class="check-box"></div><span class="check-text">${item}</span>`;
+    el.onclick = () => {
+      el.classList.toggle('done');
+      save(prefix+i, el.classList.contains('done') ? '1' : '0');
+    };
+    container.appendChild(el);
+  });
+}
+
+// ---- INIT ----
+document.addEventListener('DOMContentLoaded', () => {
+  buildWeek();
+  buildPriorities();
+  buildEnergy();
+  renderHabits();
+  renderFinance();
+  buildChecklist(dailyItems, 'dailyChecks', 'daily_check_');
+  buildChecklist(deepItems,  'deepChecks',  'deep_check_');
+  bindInputs();
+});
+</script>
+
 </body>
 </html>
