@@ -1,15 +1,213 @@
-<style>
-  :root { --soft-green: #e9f0eb; --text: #5a6b5f; }
-  body { font-family: 'serif'; background: #fdfdfb; color: var(--text); padding: 20px; }
-  .card { background: white; border-radius: 15px; padding: 20px; border: 1px solid var(--soft-green); }
-  h2 { font-style: italic; font-weight: 400; border-bottom: 1px solid var(--soft-green); padding-bottom: 10px; }
-  textarea { width: 100%; border: none; background: var(--soft-green); border-radius: 8px; margin: 10px 0; padding: 10px; }
-</style>
-<div class="card">
-  <h2>Weekly Reflection ✨</h2>
-  <label>¿Qué salió bien esta semana?</label>
-  <textarea id="well" rows="3"></textarea>
-  <label>¿En qué puedo mejorar?</label>
-  <textarea id="improve" rows="3"></textarea>
-  <button onclick="alert('Guardado con calma...')">Guardar reflexión</button>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Reset Your Life ✨</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3039/3039527.png">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --soft-sage: #e9f0eb;
+            --deep-sage: #5a6b5f;
+            --accent: #d4e2d9;
+            --text: #4a4a4a;
+            --white: #ffffff;
+        }
+
+        /* RESET & BASE */
+        header, #banner, .gh-header { display: none !important; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: #fdfdfb;
+            color: var(--text);
+            padding: env(safe-area-inset-top) 15px 100px;
+        }
+
+        .container { max-width: 500px; margin: 0 auto; }
+
+        [span_3](start_span)/* HEADER ESTILO SOFT[span_3](end_span) */
+        .welcome-header {
+            text-align: center;
+            padding: 40px 0 20px;
+        }
+        h1 { font-weight: 300; font-size: 28px; letter-spacing: 1px; color: var(--deep-sage); }
+        p.subtitle { font-style: italic; font-size: 14px; opacity: 0.7; }
+
+        /* TARJETAS INTERACTIVAS */
+        .card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid var(--soft-sage);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+        }
+        .card-title {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+            color: var(--deep-sage);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        [span_4](start_span)/* 1. MOOD & ENERGY[span_4](end_span) */
+        .mood-selector { display: flex; justify-content: space-around; font-size: 24px; margin-bottom: 15px; }
+        .mood-btn { cursor: pointer; opacity: 0.3; transition: 0.3s; }
+        .mood-btn.active { opacity: 1; transform: scale(1.2); }
+
+        .energy-bar { display: flex; gap: 8px; justify-content: center; }
+        .energy-dot { width: 25px; height: 25px; border-radius: 50%; border: 1px solid var(--soft-sage); cursor: pointer; }
+        .energy-dot.active { background: var(--deep-sage); }
+
+        [span_5](start_span)/* 2. HABIT TRACKER (Semanal)[span_5](end_span) */
+        .habit-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+        .habit-name { font-size: 14px; flex: 1; }
+        .days-dots { display: flex; gap: 5px; }
+        .dot { width: 18px; height: 18px; border-radius: 4px; border: 1px solid var(--soft-sage); cursor: pointer; }
+        .dot.done { background: var(--deep-sage); border-color: var(--deep-sage); }
+
+        [span_6](start_span)[span_7](start_span)/* 3. FINANCE TRACKER[span_6](end_span)[span_7](end_span) */
+        .finance-summary { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; text-align: center; }
+        .fin-box { padding: 10px; background: var(--soft-sage); border-radius: 12px; }
+        .fin-box span { display: block; font-size: 10px; text-transform: uppercase; }
+        .fin-box b { font-size: 16px; color: var(--deep-sage); }
+
+        /* BOTONES */
+        .nav-tools {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            display: flex;
+            gap: 10px;
+        }
+        button.main-btn {
+            flex: 1;
+            padding: 15px;
+            border-radius: 15px;
+            border: none;
+            background: var(--deep-sage);
+            color: white;
+            font-weight: 600;
+            font-family: inherit;
+            box-shadow: 0 10px 20px rgba(90, 107, 95, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="welcome-header">
+        <h1>Reset Your Life</h1>
+        [span_8](start_span)<p class="subtitle">No pressure, just progress[span_8](end_span)</p>
+    </div>
+
+    <div class="card">
+        <div class="card-title">✨ Mood & Energy Tracker</div>
+        <div class="mood-selector">
+            <span class="mood-btn" onclick="setMood(this)">😔</span>
+            <span class="mood-btn" onclick="setMood(this)">😐</span>
+            <span class="mood-btn" onclick="setMood(this)">🙂</span>
+            <span class="mood-btn" onclick="setMood(this)">✨</span>
+        </div>
+        [span_9](start_span)<div style="font-size: 10px; text-align: center; margin-bottom: 8px;">NIVEL DE ENERGÍA[span_9](end_span)</div>
+        <div class="energy-bar" id="energyBar">
+            <div class="energy-dot" onclick="setEnergy(1)"></div>
+            <div class="energy-dot" onclick="setEnergy(2)"></div>
+            <div class="energy-dot" onclick="setEnergy(3)"></div>
+            <div class="energy-dot" onclick="setEnergy(4)"></div>
+            <div class="energy-dot" onclick="setEnergy(5)"></div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-title">🌿 Habit Tracker (Semana)</div>
+        <div id="habits-list">
+            </div>
+    </div>
+
+    <div class="card">
+        <div class="card-title">💰 Balance Financiero</div>
+        <div class="finance-summary">
+            <div class="fin-box">
+                [span_10](start_span)<span>Ingresos[span_10](end_span)</span>
+                <input type="number" id="inc" value="0" onchange="calcFin()" style="width: 70%; border:none; background:none; text-align:center; font-weight:bold;">
+            </div>
+            <div class="fin-box">
+                [span_11](start_span)<span>Gastos[span_11](end_span)</span>
+                <input type="number" id="exp" value="0" onchange="calcFin()" style="width: 70%; border:none; background:none; text-align:center; font-weight:bold;">
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 15px;">
+            [span_12](start_span)<span style="font-size: 10px; text-transform: uppercase;">Balance Total[span_12](end_span)</span>
+            <div id="totalBalance" style="font-size: 24px; font-weight: 700; color: var(--deep-sage);">$0</div>
+        </div>
+    </div>
+
+    <p style="text-align: center; font-size: 12px; font-style: italic; opacity: 0.6; padding: 10px;">
+        [span_13](start_span)"Small steps create big change"[span_13](end_span)
+    </p>
+
+    <div class="nav-tools">
+        <button class="main-btn" onclick="saveData()">Guardar Progreso ✨</button>
+    </div>
 </div>
+
+<script>
+    // Lógica Habit Tracker
+    const habits = ["Meditar", "Beber Agua", "Leer", "Ejercicio"];
+    const habitContainer = document.getElementById('habits-list');
+
+    habits.forEach(h => {
+        const row = document.createElement('div');
+        row.className = 'habit-row';
+        row.innerHTML = `
+            <span class="habit-name">${h}</span>
+            <div class="days-dots">
+                ${Array(7).fill().map(() => `<div class="dot" onclick="this.classList.toggle('done')"></div>`).join('')}
+            </div>
+        `;
+        habitContainer.appendChild(row);
+    });
+
+    // Lógica Mood
+    function setMood(el) {
+        document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('active'));
+        el.classList.add('active');
+    }
+
+    // Lógica Energía
+    function setEnergy(num) {
+        const dots = document.querySelectorAll('.energy-dot');
+        dots.forEach((d, i) => {
+            i < num ? d.classList.add('active') : d.classList.remove('active');
+        });
+    }
+
+    [span_14](start_span)// Lógica Finanzas[span_14](end_span)
+    function calcFin() {
+        const i = parseFloat(document.getElementById('inc').value) || 0;
+        const e = parseFloat(document.getElementById('exp').value) || 0;
+        document.getElementById('totalBalance').innerText = `$${i - e}`;
+    }
+
+    function saveData() {
+        [span_15](start_span)alert('Progreso guardado con éxito. Sigue así, lo estás haciendo mejor de lo que crees[span_15](end_span).');
+    }
+</script>
+
+</body>
+</html>
